@@ -5,4 +5,11 @@ package com.toilet.toilet_times.data;
  */
 
 public class Location {
+    private String buildingName;
+    private String description;
+    private int floor;
+
+    public Location() {
+
+    }
 }
