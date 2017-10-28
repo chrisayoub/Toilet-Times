@@ -5,4 +5,19 @@ package com.toilet.toilet_times.data;
  */
 
 public class Building {
+    private String buildingCode;
+    private int floorCount;
+    //image
+
+    public Building(String sym, int numFloor) {
+
+    }
+
+    public Building() {
+
+    }
+
+    public String getBuildingName() {
+        return buildingCode;
+    }
 }
