@@ -31,8 +31,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/buildingPic"
-            android:numStars="6"
-            android:padding="8dp"
+            android:numStars="5"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="13dp"
             android:stepSize="1" />
 
         <TextView
@@ -55,38 +56,39 @@
             android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Description"
             android:layout_below="@id/buildingName"
             android:layout_toRightOf="@id/buildingPic"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:text="This is some example test that could potentially get really really long and not fit into one line" />
 
         <Button
             android:id="@+id/favorite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
             android:text="Favorite"
-            android:layout_below="@id/description"
-            android:layout_toRightOf="@id/buildingPic"
-            android:padding="5dp" />
+            android:background="@null"
+            android:layout_alignRight="@id/upvotes"
+            android:layout_marginLeft="110dp"
+            android:layout_marginTop="105dp"
+             />
 
         <TextView
             android:id="@+id/upvotes"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:text="123"
-            android:layout_below="@id/description"
-            android:layout_toRightOf="@+id/favorite"
-            android:padding="5dp" />
+            android:layout_marginTop="115dp"
+            android:layout_toLeftOf="@id/flush"
+            android:gravity="center_horizontal"
+            android:text="1" />
 
         <Button
             android:id="@+id/flush"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Flush"
-            android:layout_below="@id/description"
-            android:layout_toRightOf="@+id/upvotes"
-            android:padding="5dp"
-            android:layout_margin="30dp"/>
+            android:layout_marginTop="100dp"
+            android:background="@null"
+            android:layout_alignParentEnd="true"
+            android:text="Flush" />
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>
