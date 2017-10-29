@@ -62,8 +62,9 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowCustomEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(true); // show or hide the default home button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         registerReceiver(new MyReceiver(),
                 new IntentFilter("reload"));
@@ -330,6 +331,7 @@ public class MainActivity extends AppCompatActivity {
                                 MainActivity.this.runOnUiThread(new Runnable(){
                                     @Override
                                     public void run() {
+                                        cardHolder.removeView(loadView);
                                         addCards(posts);
                                     }});
                                 super.run();
@@ -352,6 +354,7 @@ public class MainActivity extends AppCompatActivity {
                                 MainActivity.this.runOnUiThread(new Runnable(){
                                     @Override
                                     public void run() {
+                                        cardHolder.removeView(loadView);
                                         addCards(posts);
                                     }});
                                 super.run();
@@ -374,6 +377,7 @@ public class MainActivity extends AppCompatActivity {
                                 MainActivity.this.runOnUiThread(new Runnable(){
                                     @Override
                                     public void run() {
+                                        cardHolder.removeView(loadView);
                                         addCards(posts);
                                     }});
                                 super.run();
@@ -458,13 +462,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
             case android.R.id.home:
                 drawerLayout.openDrawer(Gravity.START);
-            default:
-                return super.onOptionsItemSelected(item);
         }
+        return (super.onOptionsItemSelected(menuItem));
     }
 
 }

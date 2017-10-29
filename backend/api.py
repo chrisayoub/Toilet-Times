@@ -40,11 +40,9 @@ class UserPosts(Resource):
 	def get(self):
 		session = getSession()
 		userId = request.args['id']
-
-		now = datetime.datetime.now()
-		dayAgo = now - timedelta(days = 1)
-
-		listPosts = [marshal(p, post_fields) for p in session.query(Post).filter_by(userId=id).order_by(desc(Post.time)).all()]
+		page = int(request.args['page'])
+		
+		listPosts = [marshal(p, post_fields) for p in session.query(Post).filter_by(userId=id).order_by(desc(Post.time)).limit(lim_val).offset(lim_val * page).all()]
 		for postDict in listPosts:
 			postId = postDict['id']
 			votes = session.query(Vote).filter_by(userId=userId, postId=postId).all()
