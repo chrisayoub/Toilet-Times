@@ -27,7 +27,7 @@ import com.toilet.toilet_times.data.Building;
 
 public class WhereAreYou extends Fragment {
 
-    public Building build;
+    public String build;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -80,8 +80,8 @@ public class WhereAreYou extends Fragment {
                     String temp = listAdapter.getItem(i).toString();
                     if (s.toString().equals(temp)) {
                         b.setVisibility(View.VISIBLE);
-                        build = Building.values()[i];
-                        setFloorCount(build);
+                        build = s.toString();
+                        setFloorCount(Building.valueOf(build));
                         return;
                     }
                 }

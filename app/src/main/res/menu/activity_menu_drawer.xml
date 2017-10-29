@@ -12,8 +12,8 @@
             <item
                 android:id="@+id/all_time"
                 android:title="All Time" />
-            <item
-                android:id="@+id/my_posts"
-                android:title="My Posts" />
+            <!--<item-->
+                <!--android:id="@+id/my_posts"-->
+                <!--android:title="My Posts" />-->
 
 </menu>

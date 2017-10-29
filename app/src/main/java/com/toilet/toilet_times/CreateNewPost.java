@@ -1,6 +1,7 @@
 package com.toilet.toilet_times;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,11 +21,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import com.toilet.toilet_times.data.Post;
 import com.toilet.toilet_times.fragments.Comments;
 import com.toilet.toilet_times.fragments.Ranking;
 import com.toilet.toilet_times.fragments.WhereAreYou;
 import com.toilet.toilet_times.fragments.WhichFloor;
 import com.toilet.toilet_times.network.DataTransport;
+
+import java.util.List;
 
 import me.relex.circleindicator.CircleIndicator;
 
@@ -112,15 +116,23 @@ public class CreateNewPost extends AppCompatActivity {
     public void makePost() {
         new Thread() {
             public void run() {
-                String symbol = building.build.name();
+                String symbol = building.build;
                 int floorVal = Integer.parseInt(floor.text.getText().toString());
                 int rating = (int) rank.ratingBar.getRating();
                 String commentVal = comment.text.getText().toString();
-
                 int userId = getSharedPreferences("prefs", MODE_PRIVATE).getInt("userId", -1);
-
                 DataTransport.createNewPost(userId, rating, commentVal, symbol, floorVal);
+
+                CreateNewPost.this.runOnUiThread(new Runnable(){
+                    @Override
+                    public void run() {
+                        Intent i = new Intent("reload");
+                        sendBroadcast(i);
+                        finish();
+                    }});
+                super.run();
             }
         }.start();
+
     }
 }

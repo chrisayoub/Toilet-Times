@@ -1,6 +1,9 @@
 package com.toilet.toilet_times;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     //Chris's work
     private LinearLayout cardHolder;
     private DrawerLayout drawerLayout;
+    private NavigationView navView;
 
     private static SimpleDateFormat df = new SimpleDateFormat("MM/dd");
 
@@ -38,64 +42,26 @@ public class MainActivity extends AppCompatActivity {
 
     private int userId;
 
+    private int currentMenu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        registerReceiver(new MyReceiver(),
+                new IntentFilter("reload"));
 
         userId = getSharedPreferences("prefs", MODE_PRIVATE).getInt("userId", -1);
 
         cardHolder = findViewById(R.id.cardHolder);
         drawerLayout = findViewById(R.id.drawer_layout);
 
-        final NavigationView navView = findViewById(R.id.nav_view);
+        navView = findViewById(R.id.nav_view);
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.trending) {
-                    new Thread() {
-                        public void run() {
-                            final List<Post> posts = DataTransport.getTrendingPosts(userId, currentPage);
-                            MainActivity.this.runOnUiThread(new Runnable(){
-                                @Override
-                                public void run() {
-                                    cardHolder.removeAllViews();
-                                    addCards(posts);
-                                }});
-                            super.run();
-                        }
-                    }.start();
-                } else if (item.getItemId() == R.id.recent) {
-                    new Thread() {
-                        public void run() {
-                            final List<Post> posts = DataTransport.getRecentPosts(userId, currentPage);
-                            MainActivity.this.runOnUiThread(new Runnable(){
-                                @Override
-                                public void run() {
-                                    cardHolder.removeAllViews();
-                                    addCards(posts);
-                                }});
-                            super.run();
-                        }
-                    }.start();
-                } else if (item.getItemId() == R.id.all_time) {
-                    new Thread() {
-                        public void run() {
-                            final List<Post> posts = DataTransport.getAllTimePosts(userId, currentPage);
-                            MainActivity.this.runOnUiThread(new Runnable(){
-                                @Override
-                                public void run() {
-                                    cardHolder.removeAllViews();
-                                    addCards(posts);
-                                }});
-                            super.run();
-                        }
-                    }.start();
-                } else /* My posts */ {
-
-                }
-                drawerLayout.closeDrawers();
-                return true;
+                return doReload(item.getItemId());
             }
         });
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
@@ -263,6 +229,63 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    private class MyReceiver extends BroadcastReceiver {
 
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            doReload(currentMenu);
+        }
+
+    }
+
+    private boolean doReload(int item) {
+        if (item == R.id.trending) {
+            currentMenu = R.id.trending;
+            new Thread() {
+                public void run() {
+                    final List<Post> posts = DataTransport.getTrendingPosts(userId, currentPage);
+                    MainActivity.this.runOnUiThread(new Runnable(){
+                        @Override
+                        public void run() {
+                            cardHolder.removeAllViews();
+                            addCards(posts);
+                        }});
+                    super.run();
+                }
+            }.start();
+        } else if (item == R.id.recent) {
+            currentMenu = R.id.recent;
+            new Thread() {
+                public void run() {
+                    final List<Post> posts = DataTransport.getRecentPosts(userId, currentPage);
+                    MainActivity.this.runOnUiThread(new Runnable(){
+                        @Override
+                        public void run() {
+                            cardHolder.removeAllViews();
+                            addCards(posts);
+                        }});
+                    super.run();
+                }
+            }.start();
+        } else if (item == R.id.all_time) {
+            currentMenu = R.id.all_time;
+            new Thread() {
+                public void run() {
+                    final List<Post> posts = DataTransport.getAllTimePosts(userId, currentPage);
+                    MainActivity.this.runOnUiThread(new Runnable(){
+                        @Override
+                        public void run() {
+                            cardHolder.removeAllViews();
+                            addCards(posts);
+                        }});
+                    super.run();
+                }
+            }.start();
+        } else /* My posts */ {
+
+        }
+        drawerLayout.closeDrawers();
+        return true;
+    }
 
 }

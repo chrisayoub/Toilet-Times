@@ -32,8 +32,6 @@ public class Comments extends Fragment {
                 /* Make network request */
                 CreateNewPost c = (CreateNewPost) getActivity();
                 c.makePost();
-                /* Close */
-                getActivity().finish();
             }
         });
 
