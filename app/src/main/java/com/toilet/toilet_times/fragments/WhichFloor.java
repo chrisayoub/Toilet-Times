@@ -20,14 +20,16 @@ import com.toilet.toilet_times.R;
 
 public class WhichFloor extends Fragment {
 
+    public int MAX_FLOOR = 0;
+
+    public TextView text;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_which_floor, container, false);
-        final int floorCount = getArguments().getInt("floorCount");
-        final TextView text = rootView.findViewById(R.id.floorNumber);
-        text.setHint("Floor (0 - " + floorCount + ")");
+        text = rootView.findViewById(R.id.floorNumber);
+        text.setHint("Floor (0 - " + MAX_FLOOR + ")");
 //        Right arrow
         final ImageButton b = rootView.findViewById(R.id.right_arrow_which_floor);
         b.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +63,7 @@ public class WhichFloor extends Fragment {
                     return;
                 }
                 int val = Integer.parseInt(editable.toString());
-                if (val > floorCount) {
+                if (val > MAX_FLOOR) {
                     int length = editable.length();
                     editable.replace(length - 1, length, "");
                 }
@@ -97,4 +99,9 @@ public class WhichFloor extends Fragment {
         return rootView;
     }
 
+    public void setMaxFloor(int max) {
+        System.out.println(max);
+        MAX_FLOOR = max;
+        text.setHint("Floor (0 - " + MAX_FLOOR + ")");
+    }
 }

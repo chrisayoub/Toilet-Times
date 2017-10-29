@@ -19,6 +19,8 @@ import com.toilet.toilet_times.R;
 
 public class Comments extends Fragment {
 
+    public EditText text;
+
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
@@ -28,13 +30,15 @@ public class Comments extends Fragment {
             @Override
             public void onClick(View view) {
                 /* Make network request */
-
+                CreateNewPost c = (CreateNewPost) getActivity();
+                c.makePost();
                 /* Close */
                 getActivity().finish();
             }
         });
 
         EditText t = rootView.findViewById(R.id.comment_text);
+        text = t;
         t.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {

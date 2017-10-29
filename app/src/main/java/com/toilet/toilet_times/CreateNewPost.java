@@ -24,10 +24,16 @@ import com.toilet.toilet_times.fragments.Comments;
 import com.toilet.toilet_times.fragments.Ranking;
 import com.toilet.toilet_times.fragments.WhereAreYou;
 import com.toilet.toilet_times.fragments.WhichFloor;
+import com.toilet.toilet_times.network.DataTransport;
 
 import me.relex.circleindicator.CircleIndicator;
 
 public class CreateNewPost extends AppCompatActivity {
+
+    public WhereAreYou building;
+    public WhichFloor floor;
+    public Ranking rank;
+    public Comments comment;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -83,17 +89,17 @@ public class CreateNewPost extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             if (position == 0) {
-                return new WhereAreYou();
+                building = new WhereAreYou();
+                return building;
             } else if (position == 1){
-                WhichFloor w = new WhichFloor();
-                Bundle args = new Bundle();
-                args.putInt("floorCount", 20);
-                w.setArguments(args);
-                return w;
+                floor = new WhichFloor();
+                return floor;
             } else if (position == 2) {
-                return new Ranking();
+                rank = new Ranking();
+                return rank;
             } else {
-                return new Comments();
+                comment = new Comments();
+                return comment;
             }
         }
 
@@ -101,5 +107,20 @@ public class CreateNewPost extends AppCompatActivity {
         public int getCount() {
             return 4;
         }
+    }
+
+    public void makePost() {
+        new Thread() {
+            public void run() {
+                String symbol = building.build.name();
+                int floorVal = Integer.parseInt(floor.text.getText().toString());
+                int rating = (int) rank.ratingBar.getRating();
+                String commentVal = comment.text.getText().toString();
+
+                int userId = getPreferences(MODE_PRIVATE).getInt("userId", -1);
+
+                DataTransport.createNewPost(userId, rating, commentVal, symbol, floorVal);
+            }
+        }.start();
     }
 }

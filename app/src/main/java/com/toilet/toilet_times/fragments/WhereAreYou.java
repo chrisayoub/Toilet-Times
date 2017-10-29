@@ -17,6 +17,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 
+import com.toilet.toilet_times.CreateNewPost;
 import com.toilet.toilet_times.R;
 import com.toilet.toilet_times.data.Building;
 
@@ -25,6 +26,8 @@ import com.toilet.toilet_times.data.Building;
  */
 
 public class WhereAreYou extends Fragment {
+
+    public Building build;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -77,6 +80,8 @@ public class WhereAreYou extends Fragment {
                     String temp = listAdapter.getItem(i).toString();
                     if (s.toString().equals(temp)) {
                         b.setVisibility(View.VISIBLE);
+                        build = Building.values()[i];
+                        setFloorCount(build);
                         return;
                     }
                 }
@@ -114,10 +119,18 @@ public class WhereAreYou extends Fragment {
                 ViewPager pager = (ViewPager) container;
                 pager.setCurrentItem(pager.getCurrentItem() + 1);
 
-                b.setVisibility(View.VISIBLE);
+                // b.setVisibility(View.VISIBLE);
+
+                // setFloorCount(Building.values()[i]);
             }
         });
 
         return rootView;
+    }
+
+    private void setFloorCount(Building b) {
+        int count = b.getFloorCount();
+        CreateNewPost p = (CreateNewPost) getActivity();
+        p.floor.setMaxFloor(count);
     }
 }

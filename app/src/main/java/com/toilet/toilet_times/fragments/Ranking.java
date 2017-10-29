@@ -1,5 +1,6 @@
 package com.toilet.toilet_times.fragments;
 
+import android.media.Rating;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -20,6 +21,8 @@ import com.toilet.toilet_times.R;
 
 public class Ranking extends Fragment {
 
+    public RatingBar ratingBar;
+
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
@@ -36,13 +39,13 @@ public class Ranking extends Fragment {
         b.setVisibility(View.INVISIBLE);
 
         RatingBar bar = rootView.findViewById(R.id.ratingBar2);
+        ratingBar = bar;
         bar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean bo) {
                 b.setVisibility(View.VISIBLE);
             }
         });
-
 
 //        Left arrow
         rootView.findViewById(R.id.left_arrow_rating).setOnClickListener(new View.OnClickListener() {
