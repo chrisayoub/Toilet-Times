@@ -43,7 +43,11 @@ public class Ranking extends Fragment {
         bar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean bo) {
-                b.setVisibility(View.VISIBLE);
+                if ((int) v > 0) {
+                    b.setVisibility(View.VISIBLE);
+                } else {
+                    b.setVisibility(View.INVISIBLE);
+                }
             }
         });
 
