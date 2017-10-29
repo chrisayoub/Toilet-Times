@@ -1,5 +1,6 @@
 package com.toilet.toilet_times;
 
+import android.content.Context;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -10,13 +11,21 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
+import com.toilet.toilet_times.fragments.Comments;
+import com.toilet.toilet_times.fragments.Ranking;
 import com.toilet.toilet_times.fragments.WhereAreYou;
+import com.toilet.toilet_times.fragments.WhichFloor;
+
+import me.relex.circleindicator.CircleIndicator;
 
 public class CreateNewPost extends AppCompatActivity {
 
@@ -40,6 +49,14 @@ public class CreateNewPost extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_post);
 
+        /* Close button */
+        findViewById(R.id.close_new_screen).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CreateNewPost.this.finish();
+            }
+        });
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -47,6 +64,10 @@ public class CreateNewPost extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        CircleIndicator indicator = findViewById(R.id.indicator);
+        indicator.setViewPager(mViewPager);
+        mSectionsPagerAdapter.registerDataSetObserver(indicator.getDataSetObserver());
     }
 
     /**
@@ -62,16 +83,23 @@ public class CreateNewPost extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             if (position == 0) {
-                return (Fragment) new WhereAreYou();
+                return new WhereAreYou();
+            } else if (position == 1){
+                WhichFloor w = new WhichFloor();
+                Bundle args = new Bundle();
+                args.putInt("floorCount", 20);
+                w.setArguments(args);
+                return w;
+            } else if (position == 2) {
+                return new Ranking();
             } else {
-                return (Fragment) new WhereAreYou();
+                return new Comments();
             }
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            return 4;
         }
     }
 }

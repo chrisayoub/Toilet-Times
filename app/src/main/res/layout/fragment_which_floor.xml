@@ -4,10 +4,7 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.toilet.toilet_times.fragments.WhereAreYou"
-    tools:layout_editor_absoluteY="81dp"
-    android:clickable="true"
-    android:focusableInTouchMode="true" >
+    tools:context="com.toilet.toilet_times.fragments.WhereAreYou">
 
     <TextView
         android:id="@+id/textView"
@@ -16,29 +13,41 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="92dp"
-        android:text="Where are you?"
+        android:text="Which floor are you on?"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <AutoCompleteTextView
-        android:id="@+id/autoCompleteTextView"
+    <EditText
+        android:id="@+id/floorNumber"
         android:layout_width="250dp"
         android:layout_height="57dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="96dp"
-        android:background="@drawable/rounded_text_field"
+        android:inputType="number"
         android:gravity="center"
-        android:hint="Building (e.g. RLM)"
-        app:layout_constraintEnd_toEndOf="@+id/right_arrow_where_are_you"
+        android:hint="Floor (0 - x)"
+        android:background="@drawable/rounded_text_field"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+    <!-- Left arrow -->
+    <ImageButton
+        android:id="@+id/left_arrow_which_floor"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="234dp"
+        android:background="@null"
+        android:src="@drawable/left_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <!-- Right arrow -->
     <ImageButton
-        android:id="@+id/right_arrow_where_are_you"
+        android:id="@+id/right_arrow_which_floor"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginTop="234dp"
