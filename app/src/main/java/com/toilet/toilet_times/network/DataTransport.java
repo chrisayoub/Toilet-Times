@@ -24,6 +24,7 @@ import java.util.Map;
  * Created by Chris on 10/28/2017.
  */
 
+/* Note: DO ALL OF THESE METHODS WHERE WE DO NOT BLOCK THE UI THREAD */
 public class DataTransport {
 
     private static final String BASE_URL = "http://18.216.122.103";
