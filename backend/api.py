@@ -39,9 +39,24 @@ class NewUser(Resource):
 # Get user posts (GET)
 class UserPosts(Resource):
 	def get(self):
-		id = request.args['id']
 		session = getSession()
-		return {'posts': [marshal(p, post_fields) for p in session.query(Post).filter_by(userId=id).all()]}
+		userId = request.args['id']
+
+		now = datetime.datetime.now()
+		dayAgo = now - timedelta(days = 1)
+
+		listPosts = [marshal(p, post_fields) for p in session.query(Post).filter_by(userId=id).order_by(desc(Post.time)).all()]
+		for postDict in listPosts:
+			postId = postDict['id']
+			votes = session.query(Vote).filter_by(userId=userId, postId=postId).all()
+
+			if len(votes) != 0:
+				vote = votes[0]
+				postDict['userVote'] = vote.vote
+			else:
+				postDict['userVote'] = 0
+
+		return {'posts': listPosts}
 			
 # Make a new post (POST)
 class NewPost(Resource):
