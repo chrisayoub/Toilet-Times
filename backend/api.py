@@ -54,7 +54,7 @@ class UserPosts(Resource):
 				postDict['userVote'] = vote.vote
 			else:
 				postDict['userVote'] = 0
-
+		session.close()
 		return {'posts': listPosts}
 			
 # Make a new post (POST)
@@ -71,6 +71,7 @@ class NewPost(Resource):
 		session = getSession()
 		session.add(post)
 		session.commit()
+		session.close()
 		return 'OK'
 
 # Get trending posts <- paginated, send page number (GET)
@@ -93,7 +94,7 @@ class TrendingPosts(Resource):
 				postDict['userVote'] = vote.vote
 			else:
 				postDict['userVote'] = 0
-
+		session.close()
 		return {'posts': listPosts}
 
 # Get all time posts <- paginated, send page number (GET)
@@ -113,7 +114,7 @@ class AllTimePosts(Resource):
 				postDict['userVote'] = vote.vote
 			else:
 				postDict['userVote'] = 0
-
+		session.close()
 		return {'posts': listPosts}
 
 # Get recent posts <- paginated, send page number (GET)
@@ -133,7 +134,7 @@ class RecentPosts(Resource):
 				postDict['userVote'] = vote.vote
 			else:
 				postDict['userVote'] = 0
-
+		session.close()
 		return {'posts': listPosts}
 
 # Flag post as inappropriate (POST)
@@ -145,6 +146,7 @@ class Inappropriate(Resource):
 		post = session.query(Post).filter_by(id=id)[0]
 		post.flagCount += 1
 		session.commit()
+		session.close()
 		return 'OK'
 
 # Vote a post (POST)
@@ -174,6 +176,7 @@ class VotePost(Resource):
 			vote.vote = voteValue
 
 		session.commit()
+		session.close()
 		return 'OK'
 
 # Delete a post (POST)
@@ -185,6 +188,7 @@ class DeletePost(Resource):
 		post = session.query(Post).filter_by(id=id)[0]
 		session.delete(post)
 		session.commit()
+		session.close()
 		return 'OK'
 
 api.add_resource(NewUser, '/user/new')

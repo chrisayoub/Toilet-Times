@@ -10,13 +10,19 @@
     tools:context="com.toilet.toilet_times.MainActivity"
     android:id="@+id/drawer_layout">
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <ScrollView
         android:layout_width="352dp"
         android:layout_height="479dp"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/scroll_view">
 
 
         <LinearLayout
@@ -29,7 +35,7 @@
         
         
     </ScrollView>
-
+    </android.support.v4.widget.SwipeRefreshLayout>
     <!--<include-->
         <!--layout="@layout/app_bar_menu"-->
         <!--android:layout_width="match_parent"-->

@@ -10,6 +10,7 @@ import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,7 +25,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.toilet.toilet_times.data.Post;
 import com.toilet.toilet_times.network.DataTransport;
@@ -37,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout cardHolder;
     private DrawerLayout drawerLayout;
     private NavigationView navView;
+    private SwipeRefreshLayout refresh;
 
     private static SimpleDateFormat df = new SimpleDateFormat("MM/dd");
 
@@ -58,12 +62,70 @@ public class MainActivity extends AppCompatActivity {
 
         cardHolder = findViewById(R.id.cardHolder);
         drawerLayout = findViewById(R.id.drawer_layout);
+        currentMenu = R.id.trending;
+        refresh = findViewById(R.id.swipeRefreshLayout);
+
+        final ScrollView scrollView = findViewById(R.id.scroll_view);
+
+        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                currentPage = 0;
+                if (currentMenu == R.id.trending) {
+                    new Thread() {
+                        public void run() {
+                            final List<Post> posts = DataTransport.getTrendingPosts(userId, currentPage);
+                            MainActivity.this.runOnUiThread(new Runnable(){
+                                @Override
+                                public void run() {
+                                    cardHolder.removeAllViews();
+                                    addCards(posts);
+                                    refresh.setRefreshing(false);
+                                }});
+                            super.run();
+                        }
+                    }.start();
+                } else if (currentMenu == R.id.recent) {
+                    new Thread() {
+                        public void run() {
+                            final List<Post> posts = DataTransport.getRecentPosts(userId, currentPage);
+                            MainActivity.this.runOnUiThread(new Runnable(){
+                                @Override
+                                public void run() {
+                                    cardHolder.removeAllViews();
+                                    addCards(posts);
+                                    refresh.setRefreshing(false);
+                                }});
+                            super.run();
+                        }
+                    }.start();
+                } else if (currentMenu == R.id.all_time) {
+                    new Thread() {
+                        public void run() {
+                            final List<Post> posts = DataTransport.getAllTimePosts(userId, currentPage);
+                            MainActivity.this.runOnUiThread(new Runnable(){
+                                @Override
+                                public void run() {
+                                    cardHolder.removeAllViews();
+                                    addCards(posts);
+                                    refresh.setRefreshing(false);
+                                }});
+                            super.run();
+                        }
+                    }.start();
+                } else {
+                    refresh.setRefreshing(false);
+                }
+            }
+        });
 
         navView = findViewById(R.id.nav_view);
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                return doReload(item.getItemId());
+                boolean result = doReload(item.getItemId());
+                scrollView.smoothScrollTo(0,0);
+                return result;
             }
         });
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
@@ -244,7 +306,84 @@ public class MainActivity extends AppCompatActivity {
 
             cardHolder.addView(view);
         }
+        /* Load more button */
+        final CardView loadView = (CardView) in.inflate(R.layout.load_more, cardHolder, false);
+        loadView.findViewById(R.id.load_more_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentPage++;
+                if (currentMenu == R.id.trending) {
+                    new Thread() {
+                        public void run() {
+                            final List<Post> posts = DataTransport.getTrendingPosts(userId, currentPage);
+                            if (posts.size() > 0) {
+                                MainActivity.this.runOnUiThread(new Runnable(){
+                                    @Override
+                                    public void run() {
+                                        addCards(posts);
+                                    }});
+                                super.run();
+                            } else {
+                                MainActivity.this.runOnUiThread(new Runnable(){
+                                    @Override
+                                    public void run() {
+                                        cardHolder.removeView(loadView);
+                                        Toast.makeText(loadView.getContext(), "No more posts are available.", Toast.LENGTH_SHORT).show();
+                                    }});
+                                super.run();
+                            }
+                        }
+                    }.start();
+                } else if (currentMenu == R.id.recent) {
+                    new Thread() {
+                        public void run() {
+                            final List<Post> posts = DataTransport.getRecentPosts(userId, currentPage);
+                            if (posts.size() > 0) {
+                                MainActivity.this.runOnUiThread(new Runnable(){
+                                    @Override
+                                    public void run() {
+                                        addCards(posts);
+                                    }});
+                                super.run();
+                            } else {
+                                MainActivity.this.runOnUiThread(new Runnable(){
+                                    @Override
+                                    public void run() {
+                                        cardHolder.removeView(loadView);
+                                        Toast.makeText(loadView.getContext(), "No more posts are available.", Toast.LENGTH_SHORT).show();
+                                    }});
+                                super.run();
+                            }
+                        }
+                    }.start();
+                } else if (currentMenu == R.id.all_time) {
+                    new Thread() {
+                        public void run() {
+                            final List<Post> posts = DataTransport.getAllTimePosts(userId, currentPage);
+                            if (posts.size() > 0) {
+                                MainActivity.this.runOnUiThread(new Runnable(){
+                                    @Override
+                                    public void run() {
+                                        addCards(posts);
+                                    }});
+                                super.run();
+                            } else {
+                                MainActivity.this.runOnUiThread(new Runnable(){
+                                    @Override
+                                    public void run() {
+                                        cardHolder.removeView(loadView);
+                                        Toast.makeText(loadView.getContext(), "No more posts are available.", Toast.LENGTH_SHORT).show();
+                                    }});
+                                super.run();
+                            }
+                        }
+                    }.start();
+                } else /* My posts */ {
 
+                }
+            }
+        });
+        cardHolder.addView(loadView);
     }
 
 
@@ -258,6 +397,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean doReload(int item) {
+        currentPage = 0;
         if (item == R.id.trending) {
             currentMenu = R.id.trending;
             new Thread() {
