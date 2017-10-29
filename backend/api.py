@@ -84,7 +84,7 @@ class TrendingPosts(Resource):
 		now = datetime.datetime.now()
 		dayAgo = now - timedelta(days = 1)
 
-		listPosts = [marshal(p, post_fields) for p in session.query(Post).filter(Post.time >= dayAgo).limit(lim_val).offset(lim_val * page).all()]
+		listPosts = [marshal(p, post_fields) for p in session.query(Post).filter(Post.time >= dayAgo).order_by(desc(Post.voteTotal)).limit(lim_val).offset(lim_val * page).all()]
 		for postDict in listPosts:
 			postId = postDict['id']
 			votes = session.query(Vote).filter_by(userId=userId, postId=postId).all()

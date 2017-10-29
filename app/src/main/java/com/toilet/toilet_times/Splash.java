@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-
 import com.toilet.toilet_times.network.DataTransport;
 
 public class Splash extends Activity {
