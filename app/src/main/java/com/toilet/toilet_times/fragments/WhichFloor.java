@@ -1,5 +1,6 @@
 package com.toilet.toilet_times.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -9,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -35,6 +37,8 @@ public class WhichFloor extends Fragment {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                InputMethodManager inputMethodManager =(InputMethodManager) container.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 ViewPager pager = (ViewPager) container;
                 pager.setCurrentItem(pager.getCurrentItem() + 1);
             }
@@ -79,6 +83,9 @@ public class WhichFloor extends Fragment {
                     if (text.getText().toString().equals("")) {
                         return false;
                     }
+
+                    InputMethodManager inputMethodManager =(InputMethodManager) container.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
                     b.setVisibility(View.VISIBLE);
                     ViewPager pager = (ViewPager) container;
                     pager.setCurrentItem(pager.getCurrentItem() + 1);
