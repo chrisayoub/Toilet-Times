@@ -3,21 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <item android:title="Rank By">
-        <menu>
-            <item
-                android:id="@+id/most_recent"
-                android:title="Most Recent" />
             <item
                 android:id="@+id/trending"
                 android:title="Trending" />
             <item
-                android:id="@+id/all_time_best"
-                android:title="All Time Best" />
+                android:id="@+id/recent"
+                android:title="Recent" />
+            <item
+                android:id="@+id/all_time"
+                android:title="All Time" />
             <item
                 android:id="@+id/my_posts"
                 android:title="My Posts" />
-        </menu>
-    </item>
 
 </menu>
