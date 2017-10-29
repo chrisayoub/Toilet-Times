@@ -153,7 +153,7 @@ class VotePost(Resource):
 		json_data = request.get_json(force=True)
 		postId = json_data['postId']
 		userId = json_data['userId']
-		voteValue = int(request.form['value'])
+		voteValue = int(json_data['value'])
 
 		session = getSession()
 		user = session.query(User).filter_by(id=userId).all()[0]
