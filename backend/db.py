@@ -14,7 +14,8 @@ Base = declarative_base()
 class User(Base):
 	__tablename__ = 'users'
 	id = Column(Integer, primary_key=True)
-	relationship("Post", uselist=True, backref="user")
+	posts = relationship("Post", uselist=True, backref="user")
+	votes = relationship("Vote", uselist=True, backref="user")
 
 class Post(Base):
 	__tablename__ = 'posts'
@@ -29,6 +30,13 @@ class Post(Base):
 	building = Column(String(3))
 	floor = Column(Integer)
 	locationDetailText = Column(Text)
+
+class Vote(Base):
+	__tablename__ = 'votes'
+	id = Column(Integer, primary_key=True)
+	postId = Column(Integer, ForeignKey('posts.id'))
+	userId = Column(Integer, ForeignKey('users.id'))
+	vote = Column(Integer)
 
 Base.metadata.create_all(engine)
 

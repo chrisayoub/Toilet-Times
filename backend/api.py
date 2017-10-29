@@ -1,4 +1,4 @@
-from db import User, Post, getSession
+from db import User, Post, getSession, Vote
 from flask import Flask, request
 from flask_restful import Resource, Api
 from flask_restful import Resource, fields, marshal
@@ -64,25 +64,65 @@ class NewPost(Resource):
 # Get trending posts <- paginated, send page number (GET)
 class TrendingPosts(Resource):
 	def get(self):
-		page = request.args['page']
+		session = getSession()
+		page = int(request.args['page'])
+		userId = request.args['userId']
+
 		now = datetime.datetime.now()
 		dayAgo = now - timedelta(days = 1)
-		session = getSession()
-		return {'posts': [marshal(p, post_fields) for p in session.query(Post).filter(Post.time >= dayAgo).limit(lim_val).offset(lim_val * page).all()]}
+
+		listPosts = [marshal(p, post_fields) for p in session.query(Post).filter(Post.time >= dayAgo).limit(lim_val).offset(lim_val * page).all()]
+		for postDict in listPosts:
+			postId = postDict['id']
+			votes = session.query(Vote).filter_by(userId=userId, postId=postId).all()
+
+			if len(votes) != 0:
+				vote = votes[0]
+				postDict['userVote'] = vote.vote
+			else:
+				postDict['userVote'] = 0
+
+		return {'posts': listPosts}
 
 # Get all time posts <- paginated, send page number (GET)
 class AllTimePosts(Resource):
 	def get(self):
-		page = request.args['page']
 		session = getSession()
-		return {'posts': [marshal(p, post_fields) for p in session.query(Post).order_by(desc(Post.voteTotal)).limit(lim_val).offset(lim_val * page).all()]}
+		page = int(request.args['page'])
+		userId = request.args['userId']
+
+		listPosts = [marshal(p, post_fields) for p in session.query(Post).order_by(desc(Post.voteTotal)).offset(lim_val * page).limit(lim_val).all()]
+		for postDict in listPosts:
+			postId = postDict['id']
+			votes = session.query(Vote).filter_by(userId=userId, postId=postId).all()
+			
+			if len(votes) != 0:
+				vote = votes[0]
+				postDict['userVote'] = vote.vote
+			else:
+				postDict['userVote'] = 0
+
+		return {'posts': listPosts}
 
 # Get recent posts <- paginated, send page number (GET)
 class RecentPosts(Resource):
 	def get(self):
-		page = request.args['page']
 		session = getSession()
-		return {'posts': [marshal(p, post_fields) for p in session.query(Post).order_by(desc(Post.time)).limit(lim_val).offset(lim_val * page).all()]}
+		page = int(request.args['page'])
+		userId = request.args['userId']
+
+		listPosts = [marshal(p, post_fields) for p in session.query(Post).order_by(desc(Post.time)).limit(lim_val).offset(lim_val * page).all()]
+		for postDict in listPosts:
+			postId = postDict['id']
+			votes = session.query(Vote).filter_by(userId=userId, postId=postId).all()
+
+			if len(votes) != 0:
+				vote = votes[0]
+				postDict['userVote'] = vote.vote
+			else:
+				postDict['userVote'] = 0
+
+		return {'posts': listPosts}
 
 # Flag post as inappropriate (POST)
 class Inappropriate(Resource):
@@ -94,22 +134,31 @@ class Inappropriate(Resource):
 		session.commit()
 		return 'OK'
 
-# Upvote or downvote a post (POST)
-class UpvotePost(Resource):
+# Vote a post (POST)
+class VotePost(Resource):
 	def post(self):
-		session = getSession()
-		id = request.form['id']
-		post = session.query(Post).filter_by(id=id)[0]
-		post.voteTotal += 1
-		session.commit()
-		return 'OK'
+		postId = request.form['postId']
+		userId = request.form['userId']
+		voteValue = int(request.form['value'])
 
-class DownvotePost(Resource):
-	def post(self):
 		session = getSession()
-		id = request.form['id']
-		post = session.query(Post).filter_by(id=id)[0]
-		post.voteTotal -= 1
+		user = session.query(User).filter_by(id=userId).all()[0]
+		post = session.query(Post).filter_by(id=postId).all()[0]
+		votes = session.query(Vote).filter_by(userId=userId, postId=postId).all()
+
+		if len(votes) == 0:
+			vote = Vote(userId=userId, postId=postId, vote=voteValue)
+			session.add(vote)
+			post.voteTotal += voteValue
+		else:
+			vote = votes[0]
+			currentVoteVal = vote.vote
+			# Make adjust
+			diff = currentVoteVal - voteValue
+			post.voteTotal -= diff
+			# Update value
+			vote.vote = voteValue
+
 		session.commit()
 		return 'OK'
 
@@ -130,8 +179,7 @@ api.add_resource(TrendingPosts, '/posts/trending')
 api.add_resource(AllTimePosts, '/posts/all')
 api.add_resource(RecentPosts, '/posts/recent')
 api.add_resource(Inappropriate, '/post/flag')
-api.add_resource(UpvotePost, '/post/upvote')
-api.add_resource(DownvotePost, '/post/downvote')
+api.add_resource(VotePost, '/post/vote')
 api.add_resource(DeletePost, '/post/delete')
 
 if __name__ == '__main__':
