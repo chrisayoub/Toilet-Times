@@ -60,6 +60,9 @@ public class DataTransport {
             toSend.put("comment", comment);
             toSend.put("building", building);
             toSend.put("floor", floor);
+
+            System.out.println(toSend.toString());
+
             doPost(url, toSend.toString());
         } catch (JSONException e) {
             e.printStackTrace();
@@ -165,8 +168,7 @@ public class DataTransport {
             //Connect
             HttpURLConnection httpcon = (HttpURLConnection) ((new URL (url).openConnection()));
             httpcon.setDoOutput(true);
-            httpcon.setRequestProperty("Content-Type", "application/json");
-            httpcon.setRequestProperty("Accept", "application/json");
+            httpcon.setDoInput(true);
             httpcon.setRequestMethod("POST");
             httpcon.connect();
 
@@ -215,8 +217,8 @@ public class DataTransport {
             //Connect
             HttpURLConnection httpcon = (HttpURLConnection) ((new URL (url).openConnection()));
             httpcon.setDoOutput(true);
-            httpcon.setRequestProperty("Content-Type", "application/json");
-            httpcon.setRequestProperty("Accept", "application/json");
+            //httpcon.setRequestProperty("Content-Type", "application/json");
+            //httpcon.setRequestProperty("Accept", "application/json");
             httpcon.setRequestMethod("GET");
             httpcon.connect();
 

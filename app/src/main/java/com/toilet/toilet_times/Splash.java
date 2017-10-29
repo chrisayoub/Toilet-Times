@@ -28,7 +28,7 @@ public class Splash extends Activity {
         }, SPLASH_DISPLAY_LENGHT);
 
         /* Create account and store user ID if none exists */
-        final SharedPreferences p = getPreferences(MODE_PRIVATE);
+        final SharedPreferences p = getSharedPreferences("prefs", MODE_PRIVATE);
         int uid = p.getInt("userId", -1);
         if (uid == -1) {
             new Thread() {

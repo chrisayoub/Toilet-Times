@@ -117,7 +117,7 @@ public class CreateNewPost extends AppCompatActivity {
                 int rating = (int) rank.ratingBar.getRating();
                 String commentVal = comment.text.getText().toString();
 
-                int userId = getPreferences(MODE_PRIVATE).getInt("userId", -1);
+                int userId = getSharedPreferences("prefs", MODE_PRIVATE).getInt("userId", -1);
 
                 DataTransport.createNewPost(userId, rating, commentVal, symbol, floorVal);
             }
