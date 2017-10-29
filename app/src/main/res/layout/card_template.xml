@@ -31,9 +31,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/buildingPic"
-            android:numStars="5"
-            android:layout_marginTop="18dp"
             android:layout_marginStart="11dp"
+            android:layout_marginTop="18dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:numStars="5"
+            android:progressTint="@color/colorPrimary"
+            android:secondaryProgressTint="@color/colorPrimary"
             android:stepSize="1" />
 
         <TextView
@@ -59,7 +62,8 @@
             android:layout_below="@id/buildingName"
             android:layout_toRightOf="@id/buildingPic"
             android:padding="8dp"
-            android:text="This is some example test that could potentially get really really long and not fit into one line" />
+            android:text="This is some example test that could potentially get really really long and not fit into one line"
+            android:textColor="@color/darkNavy" />
 
         <Button
             android:id="@+id/favorite"
@@ -70,25 +74,33 @@
             android:layout_toLeftOf="@id/upvotes"
             android:background="@null"
             android:text="Favorite"
+            android:textColor="@color/grayText"
             android:textStyle="normal" />
 
         <TextView
             android:id="@+id/upvotes"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="115dp"
-            android:layout_toLeftOf="@+id/flush"
+            android:layout_alignBaseline="@+id/favorite"
+            android:layout_alignBottom="@+id/favorite"
+            android:layout_toStartOf="@+id/flush"
             android:gravity="center_horizontal"
-            android:text="100" />
+            android:text="100"
+            android:textColor="@color/darkNavy" />
 
         <Button
             android:id="@+id/flush"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="100dp"
             android:background="@null"
-            android:layout_alignParentEnd="true"
-            android:text="Flush" />
+            android:text="Flush"
+            android:textColor="@color/grayText" />
 
     </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.75dp"
+        android:background="@color/darkNavy" />
 </android.support.v7.widget.CardView>

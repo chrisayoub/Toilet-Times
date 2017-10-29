@@ -4,6 +4,7 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context="com.toilet.toilet_times.fragments.WhereAreYou">
 
     <TextView
@@ -14,6 +15,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="92dp"
         android:text="Rank this bathroom"
+        android:textColor="@color/colorAccent"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

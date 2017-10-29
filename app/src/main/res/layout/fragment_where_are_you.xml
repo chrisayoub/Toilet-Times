@@ -4,10 +4,11 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.toilet.toilet_times.fragments.WhereAreYou"
-    tools:layout_editor_absoluteY="81dp"
+    android:background="@color/colorPrimary"
     android:clickable="true"
-    android:focusableInTouchMode="true" >
+    android:focusableInTouchMode="true"
+    tools:context="com.toilet.toilet_times.fragments.WhereAreYou"
+    tools:layout_editor_absoluteY="81dp">
 
     <TextView
         android:id="@+id/textView"
@@ -17,6 +18,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="92dp"
         android:text="Where are you?"
+        android:textColor="@color/colorAccent"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

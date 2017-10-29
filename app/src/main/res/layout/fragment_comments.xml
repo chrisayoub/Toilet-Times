@@ -4,10 +4,11 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.toilet.toilet_times.fragments.WhereAreYou"
-    tools:layout_editor_absoluteY="81dp"
+    android:background="@color/colorPrimary"
     android:clickable="true"
-    android:focusableInTouchMode="true" >
+    android:focusableInTouchMode="true"
+    tools:context="com.toilet.toilet_times.fragments.WhereAreYou"
+    tools:layout_editor_absoluteY="81dp">
 
     <TextView
         android:id="@+id/textView"
@@ -17,6 +18,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="92dp"
         android:text="Comments"
+        android:textColor="@color/colorAccent"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,15 +31,20 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="28dp"
+        android:background="@drawable/rounded_text_field"
+        android:ems="10"
         android:hint="(Optional)"
+        android:gravity="top"
+        android:padding="8dp"
+        android:inputType="textMultiLine|textCapSentences"
+        android:maxLines="9"
+        android:minLines="9"
+        android:textColor="@color/grayText"
+        android:textColorHint="@color/grayText"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        android:ems="10"
-        android:minLines="9"
-        android:maxLines="9"
-        android:inputType="textMultiLine|textCapSentences" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
         android:id="@+id/post_button"
@@ -46,8 +53,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
-        android:text="Post"
         android:background="@drawable/rounded_text_field"
+        android:text="Post"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/comment_text" />

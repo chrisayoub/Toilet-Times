@@ -4,6 +4,7 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context="com.toilet.toilet_times.fragments.WhereAreYou">
 
     <TextView
@@ -14,6 +15,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="92dp"
         android:text="Which floor are you on?"
+        android:textColor="@color/colorAccent"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,10 +28,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="96dp"
-        android:inputType="number"
+        android:background="@drawable/rounded_text_field"
         android:gravity="center"
         android:hint="Floor (0 - x)"
-        android:background="@drawable/rounded_text_field"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />

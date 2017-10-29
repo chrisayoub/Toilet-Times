@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -117,15 +119,22 @@ public class MainActivity extends AppCompatActivity {
             bar.setRating(p.rating);
             timePosted.setText(df.format(p.time) + " ·");
 
+            final int blue = Color.parseColor("#17D4D3");
+            final int grey = Color.parseColor("#CCCCCC");
+
             if (p.userVote == 1) {
                 fav.setTypeface(null, Typeface.BOLD);
+                fav.setTextColor(blue);
             } else {
                 fav.setTypeface(null, Typeface.NORMAL);
+                fav.setTextColor(grey);
             }
             if (p.userVote == -1) {
                 flush.setTypeface(null, Typeface.BOLD);
+                flush.setTextColor(blue);
             } else {
                 flush.setTypeface(null, Typeface.NORMAL);
+                flush.setTextColor(grey);
             }
 
             fav.setOnClickListener(new View.OnClickListener() {
@@ -144,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
                         }.start();
                         /* Unbold */
                         fav.setTypeface(null, Typeface.NORMAL);
+                        fav.setTextColor(grey);
                     } else {
                         if (flush.getTypeface() != null && flush.getTypeface().isBold()) {
                             /* Add to score */
@@ -158,7 +168,9 @@ public class MainActivity extends AppCompatActivity {
                             }.start();
                             /* Bold */
                             fav.setTypeface(null, Typeface.BOLD);
+                            fav.setTextColor(blue);
                             flush.setTypeface(null, Typeface.NORMAL);
+                            flush.setTextColor(grey);
                         } else {
                             /* Add to score */
                             score += 1;
@@ -171,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
                             }.start();
                             /* Bold*/
                             fav.setTypeface(null, Typeface.BOLD);
+                            fav.setTextColor(blue);
                         }
                     }
 
@@ -193,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
                         }.start();
                         /* Unbold */
                         flush.setTypeface(null, Typeface.NORMAL);
+                        flush.setTextColor(grey);
                     } else {
                         if (fav.getTypeface() != null && fav.getTypeface().isBold()) {
                             /* Add to score */
@@ -207,7 +221,9 @@ public class MainActivity extends AppCompatActivity {
                             }.start();
                             /* Bold */
                             flush.setTypeface(null, Typeface.BOLD);
+                            flush.setTextColor(blue);
                             fav.setTypeface(null, Typeface.NORMAL);
+                            fav.setTextColor(grey);
                         } else {
                             /* Add to score */
                             score -= 1;
@@ -220,6 +236,7 @@ public class MainActivity extends AppCompatActivity {
                             }.start();
                             /* Bold*/
                             flush.setTypeface(null, Typeface.BOLD);
+                            flush.setTextColor(blue);
                         }
                     }
                 }
