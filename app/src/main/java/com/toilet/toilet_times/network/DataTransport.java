@@ -191,6 +191,9 @@ public class DataTransport {
 
             br.close();
             result = sb.toString();
+            if (result.equals("\"OK\"")) {
+                return new JSONObject();
+            }
             return new JSONObject(result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -216,7 +219,7 @@ public class DataTransport {
 
             //Connect
             HttpURLConnection httpcon = (HttpURLConnection) ((new URL (url).openConnection()));
-            httpcon.setDoOutput(true);
+            //httpcon.setDoOutput(true);
             //httpcon.setRequestProperty("Content-Type", "application/json");
             //httpcon.setRequestProperty("Accept", "application/json");
             httpcon.setRequestMethod("GET");
