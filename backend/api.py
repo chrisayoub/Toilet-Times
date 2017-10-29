@@ -194,4 +194,4 @@ api.add_resource(VotePost, '/post/vote')
 api.add_resource(DeletePost, '/post/delete')
 
 if __name__ == '__main__':
-	app.run(debug=True, host='0.0.0.0', port=443)
+	app.run(debug=True, host='0.0.0.0', port=80)
