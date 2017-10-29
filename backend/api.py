@@ -21,8 +21,7 @@ post_fields = {
     'voteTotal': fields.Integer,
     'flagCount': fields.Integer,
     'building': fields.String,
-    'floor': fields.Integer,
-    'locationDetailText': fields.String
+    'floor': fields.Integer
 }
 
 # Endpoints
@@ -64,13 +63,10 @@ class NewPost(Resource):
 		userId = request.form['userId']
 		rating = request.form['rating']
 		comment = request.form['comment']
-		time = request.form['time']
-		voteTotal = request.form['voteTotal']
-		flagCount = request.form['flagCount']
 		building = request.form['building']
 		floor = request.form['floor']
-		locationDetailText = request.form['locationDetailText']
-		post = Post(userId = userId, rating = rating, comment = comment, time = time, voteTotal = voteTotal, flagCount = flagCount, building = building, floor = floor, locationDetailText = locationDetailText)
+		time = datetime.datetime.now()
+		post = Post(userId = userId, rating = rating, comment = comment, time = time, voteTotal = 0, flagCount = 0, building = building, floor = floor)
 		session = getSession()
 		session.add(post)
 		session.commit()

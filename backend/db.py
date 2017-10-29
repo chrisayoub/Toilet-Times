@@ -29,7 +29,6 @@ class Post(Base):
 	# Location details
 	building = Column(String(3))
 	floor = Column(Integer)
-	locationDetailText = Column(Text)
 
 class Vote(Base):
 	__tablename__ = 'votes'
