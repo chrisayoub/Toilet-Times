@@ -1,19 +1,26 @@
 package com.toilet.toilet_times.data;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by clarezhang on 10/28/17.
  */
 
 public class Post {
-    private String content;
-    private Location location;
-    private Timestamp ts;
-    private User user;
-    private long postID;
-    private int rating;
-    private int numFlags;
-    private int currentRanking;
+    /* IDs */
+    public int id;
+    public int userId;
+
+    /* Post content */
+    public int rating;
+    public Building building;
+    public int floor;
+    public String comment;
+    public Date time;
+
+    /* Attributes */
+    public int voteTotal;
+    public int flagCount;
+    public int userVote;
 
 }
