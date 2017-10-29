@@ -60,11 +60,12 @@ class UserPosts(Resource):
 # Make a new post (POST)
 class NewPost(Resource):
 	def post(self):
-		userId = request.form['userId']
-		rating = request.form['rating']
-		comment = request.form['comment']
-		building = request.form['building']
-		floor = request.form['floor']
+		json_data = request.get_json(force=True)
+		userId = json_data['userId']
+		rating = json_data['rating']
+		comment = json_data['comment']
+		building = json_data['building']
+		floor = json_data['floor']
 		time = datetime.datetime.now()
 		post = Post(userId = userId, rating = rating, comment = comment, time = time, voteTotal = 0, flagCount = 0, building = building, floor = floor)
 		session = getSession()
@@ -138,8 +139,9 @@ class RecentPosts(Resource):
 # Flag post as inappropriate (POST)
 class Inappropriate(Resource):
 	def post(self):
+		json_data = request.get_json(force=True)
 		session = getSession()
-		id = request.form['id']
+		id = json_data['id']
 		post = session.query(Post).filter_by(id=id)[0]
 		post.flagCount += 1
 		session.commit()
@@ -148,8 +150,9 @@ class Inappropriate(Resource):
 # Vote a post (POST)
 class VotePost(Resource):
 	def post(self):
-		postId = request.form['postId']
-		userId = request.form['userId']
+		json_data = request.get_json(force=True)
+		postId = json_data['postId']
+		userId = json_data['userId']
 		voteValue = int(request.form['value'])
 
 		session = getSession()
@@ -176,8 +179,9 @@ class VotePost(Resource):
 # Delete a post (POST)
 class DeletePost(Resource):
 	def post(self):
+		json_data = request.get_json(force=True)
 		session = getSession()
-		id = request.form['id']
+		id = json_data['id']
 		post = session.query(Post).filter_by(id=id)[0]
 		session.delete(post)
 		session.commit()
