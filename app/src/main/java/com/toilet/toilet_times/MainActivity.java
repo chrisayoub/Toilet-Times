@@ -94,6 +94,9 @@ public class MainActivity extends AppCompatActivity {
             final int postId = p.id;
 
             ImageView image = view.findViewById(R.id.buildingPic);
+            image.setImageResource(getResources().getIdentifier(p.building.name().toLowerCase(),
+                    "drawable", "com.toilet.toilet_times"));
+
             TextView timePosted = view.findViewById(R.id.timePosted);
             TextView buildingName = view.findViewById(R.id.buildingName);
             TextView floorNum = view.findViewById(R.id.floorNum);
@@ -103,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             final TextView votes = view.findViewById(R.id.upvotes);
             RatingBar bar = view.findViewById(R.id.starRating);
 
-            buildingName.setText(p.building.toString());
+            buildingName.setText(p.building.toString() + " ·");
             floorNum.setText("F" + p.floor);
             if (p.comment.equals("")) {
                 comment.setText("No comment specified.");
@@ -112,8 +115,7 @@ public class MainActivity extends AppCompatActivity {
             }
             votes.setText(p.voteTotal + "");
             bar.setRating(p.rating);
-            timePosted.setText(df.format(p.time));
-            image.setImageResource(R.drawable.circle_selected);
+            timePosted.setText(df.format(p.time) + " ·");
 
             if (p.userVote == 1) {
                 fav.setTypeface(null, Typeface.BOLD);

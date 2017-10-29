@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:text="Buidling"
             android:layout_toRightOf="@+id/timePosted"
-            android:paddingStart="8dp"/>
+            android:paddingStart="6dp"/>
 
         <TextView
             android:id="@+id/floorNum"
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:text="Floor:"
             android:layout_toRightOf="@id/buildingName"
-            android:paddingStart="8dp" />
+            android:paddingStart="6dp" />
 
         <TextView
             android:id="@+id/description"
