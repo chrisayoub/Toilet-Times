@@ -20,8 +20,8 @@ import com.toilet.toilet_times.R;
  */
 
 public class Ranking extends Fragment {
-
-    public RatingBar ratingBar;
+//
+//    public RatingBar ratingBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -38,18 +38,18 @@ public class Ranking extends Fragment {
         });
         b.setVisibility(View.INVISIBLE);
 
-        RatingBar bar = rootView.findViewById(R.id.ratingBar2);
-        ratingBar = bar;
-        bar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float v, boolean bo) {
-                if ((int) v > 0) {
-                    b.setVisibility(View.VISIBLE);
-                } else {
-                    b.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
+//        RatingBar bar = rootView.findViewById(R.id.ratingBar2);
+//        ratingBar = bar;
+//        bar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+//            @Override
+//            public void onRatingChanged(RatingBar ratingBar, float v, boolean bo) {
+//                if ((int) v > 0) {
+//                    b.setVisibility(View.VISIBLE);
+//                } else {
+//                    b.setVisibility(View.INVISIBLE);
+//                }
+//            }
+//        });
 
 //        Left arrow
         rootView.findViewById(R.id.left_arrow_rating).setOnClickListener(new View.OnClickListener() {

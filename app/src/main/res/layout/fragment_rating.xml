@@ -13,30 +13,13 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="40dp"
         android:text="Rate this bathroom"
         android:textColor="@color/colorAccent"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <RatingBar
-        android:id="@+id/ratingBar2"
-        android:layout_width="wrap_content"
-        android:layout_height="58dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="10dp"
-        android:numStars="5"
-        android:progressBackgroundTint="#dddddd"
-        android:progressDrawable="@drawable/custom_ratingbar_selector"
-        android:progressTint="@color/colorAccent"
-        android:secondaryProgressTint="#dddddd"
-        android:stepSize="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <!-- Left arrow -->
     <ImageButton
@@ -60,5 +43,76 @@
         android:src="@drawable/right_arrow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="98dp"
+        android:layout_height="98dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/roll_art"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <ImageView
+        android:id="@+id/squareFive"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="140dp"
+        android:src="@drawable/square"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/squareFour"
+        android:layout_width="76dp"
+        android:layout_height="75dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="28dp"
+
+        android:src="@drawable/square"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/squareFive" />
+
+    <ImageView
+        android:id="@+id/squareThree"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:src="@drawable/square"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/squareFour"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="28dp"/>
+
+    <ImageView
+        android:id="@+id/squareTwo"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:src="@drawable/square"
+        app:layout_constraintTop_toBottomOf="@+id/squareThree"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="28dp"/>
+
+    <ImageView
+        android:id="@+id/squareOne"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:src="@drawable/square"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/squareTwo"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="28dp"/>
 
 </android.support.constraint.ConstraintLayout>
