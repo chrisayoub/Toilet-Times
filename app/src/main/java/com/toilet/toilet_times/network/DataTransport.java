@@ -27,7 +27,7 @@ import java.util.Map;
 /* Note: DO ALL OF THESE METHODS WHERE WE DO NOT BLOCK THE UI THREAD */
 public class DataTransport {
 
-    private static final String BASE_URL = "http://18.216.122.103";
+    private static final String BASE_URL = "http://18.216.67.28";
     private static final SimpleDateFormat ISO = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
     /* API Calls */
